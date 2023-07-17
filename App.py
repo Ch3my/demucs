@@ -1,6 +1,6 @@
 import os
 import threading
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 
 app = Flask(__name__)
 UPLOAD_FOLDER = 'uploads'
@@ -48,6 +48,17 @@ def upload_status():
     else:
         return jsonify({'message': 'File processing is complete.'})
 
+@app.route('/uploads')
+def list_files():
+    # Get the list of files in the uploads folder
+    files = os.listdir(app.config['UPLOAD_FOLDER'])
+    return jsonify({'files': files})
+
+
+@app.route('/uploads/<filename>')
+def download_file(filename):
+    # Allow users to download a specific file from the uploads folder
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     is_processing = False  # Global variable to track processing status
