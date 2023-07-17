@@ -9,7 +9,7 @@ RUN python3 -m pip install -U demucs
 RUN pip install flask
 RUN mkdir uploads
 
-RUN apt-get update && apt-get install ffmpeg
+RUN apt-get update && apt-get install ffmpeg -y
 
 COPY . .
 
