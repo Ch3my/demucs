@@ -9,6 +9,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 def process_file(filename):
+    # set the working directory to the uploads folder
+    os.chdir(app.config["UPLOAD_FOLDER"])
     # Execute the demucs command with the file path and name
     demucs.separate.main([os.path.join(UPLOAD_FOLDER, filename)])
     #command = f"demucs {os.path.join(UPLOAD_FOLDER, filename)}"
